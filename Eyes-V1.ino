@@ -72,8 +72,6 @@ float calibAX = 0, calibAY = 0, calibAZ = 0;
 
 // ---- IMU axis mapping: TUNE THESE by watching Serial output while tilting the helmet ----
 // Which raw axis feeds horizontal (X) / vertical (Y) eye movement: 0=ax, 1=ay, 2=az.
-// Your IMU is mounted at 90° (pins facing backward, not down into a breadboard), so the
-// axis that reads "left/right tilt" is very likely NOT the same one it would be in a flat mount.
 #define AXIS_X_SOURCE   1      // ay drives horizontal
 #define AXIS_X_INVERT   -1     // real-eye behavior: tilt head left -> eye moves right. Flip to +1 if backwards.
 #define AXIS_Y_SOURCE   2      // az drives vertical
@@ -83,7 +81,7 @@ unsigned long lastDebugPrint = 0;
 
 // ---- IMU failsafe state (simplified) ----
 // No retry timer / center-snapping - that was causing sluggish tracking on flaky
-// breadboard I2C. If a read fails, we just reuse the last known-good values below,
+// breadboard I2C. If a read fails, just reuse the last known-good values below,
 // so an isolated dropped read is invisible and a fully-dead IMU holds its last gaze
 // instead of resetting or hanging.
 float lastGoodAX = 0, lastGoodAY = 0, lastGoodAZ = 0;
@@ -122,7 +120,7 @@ void imuInit() {
   Wire.endTransmission(true);
 }
 
-// Cheap "is anyone home" check - reads WHO_AM_I. We don't check the exact value
+// Reads WHO_AM_I. don't check the exact value
 // (varies slightly across MPU6500 revisions) - a clean response of any kind means
 // the chip is wired correctly and answering on the bus.
 bool imuVerify() {
