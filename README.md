@@ -1,6 +1,6 @@
 # Eyes - ESP32 LED Matrix Eye Firmware
 
-A complete eye animation system for a WIP coslpay. Features head-tracking via IMU, responsive blinks, idle micro-movements, and adaptive brightness. Designed to be robust at conventions (watchdog auto-reboot, graceful I2C failsafe, ambient light sensing).
+A complete eye animation system. Features head-tracking via IMU, responsive blinks, idle micro-movements, and adaptive brightness. Designed to be robust at conventions (watchdog auto-reboot, graceful I2C failsafe, ambient light sensing).
 
 ---
 
