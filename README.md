@@ -131,9 +131,9 @@ Con failsafe: if I2C hangs, driver crashes, or anything locks up the main loop, 
 
 ### Head Tracking (IMU → Pupil Position)
 
-1. **Boot calibration**: At power-on, IMU samples for ~1 second while you hold the helmet still at its normal resting angle. Whatever tilt is read becomes the "center" point (like phone auto-orientation).
+1. **Boot calibration**: At power-on, IMU samples for ~1 second while you hold the setup still at its normal resting angle. Whatever tilt is read becomes the "center" point (like phone auto-orientation).
 2. **Real-time tracking**: Every loop, IMU accel is read, relative tilt is calculated, and pupil target position is updated.
-3. **Easing**: Pupil doesn't snap — it smoothly "chases" toward the target using exponential smoothing (`easeFactor`), creating a natural, lived-in gaze.
+3. **Easing**: Pupil doesn't snap;2 it smoothly "chases" toward the target using exponential smoothing (`easeFactor`), creating a natural, lived-in gaze.
 4. **Edge clamping**: If head rotation would push the pupil out of the matrix bounds, it clamps to the edge and holds there, then eases back to center when you stop tilting. Reads intelligent, not cross-eyed or buggy.
 5. **Failsafe**: If an I2C read from the IMU fails (breadboard flakiness), the code reuses the last good acceleration values instead of resetting or hanging. Isolated dropped reads are invisible; a fully dead IMU just holds its last gaze instead of resetting.
 
@@ -163,7 +163,7 @@ The LDR sensor on GPIO 34 auto-adjusts LED brightness to the environment:
 
 ### Watchdog Timer (Convention Failsafe)
 
-The ESP32 watchdog is armed at startup and must be fed every loop cycle. If the main loop hangs or deadlocks for >5 seconds, the watchdog force-reboots the board cleanly. No more "dead eyes mid-con" — just a quick 2-3 second power-on reset and you're live again.
+The ESP32 watchdog is armed at startup and must be fed every loop cycle. If the main loop hangs or deadlocks for >5 seconds, the watchdog force-reboots the board cleanly. No more "dead eyes mid-con" - just a quick 2-3 second power-on reset and you're live again.
 
 ---
 
@@ -255,7 +255,7 @@ The brightness auto-range uses two different adaptation rates:
 - **Fast (0.2)** when a new extreme is encountered (dark area → brightness jumps up)
 - **Slow (0.001)** otherwise (prevents one spike from permanently skewing the range)
 
-This means the first time you take the helmet into a very bright room, brightness might overshoot, then settle within a few seconds. Intended behavior to avoid stale calibration.
+This means the first time you take the setup into a very bright room, brightness might overshoot, then settle within a few seconds. Intended behavior to avoid stale calibration.
 
 ### Idle Jitter Only Activates When "Close"
 
